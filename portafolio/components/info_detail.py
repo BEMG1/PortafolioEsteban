@@ -18,15 +18,18 @@ def info_detail(info: Info) -> rx.Component:
                     color_scheme="gray"
                 ),
                 rx.cond(
-                    info.technologies,
+                    len(info.technologies) > 0,
                     rx.flex(
                         *[
                             rx.badge(
-                                rx.box(class_name=technology.icon),
-                                technology.name,
+                                rx.box(class_name=technology["icon"]),
+                                technology["name"],
                                 color_scheme="gray"
                             )
-                            for technology in info.technologies
+                            for technology in [
+                                {"name": t.name, "icon": t.icon}
+                                for t in info.technologies
+                            ]
                         ],
                         wrap="wrap",
                         spacing=Size.SMALL.value
